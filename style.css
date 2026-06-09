@@ -17,15 +17,25 @@ html, body {
   color: #fff;
   font-family: 'Courier New', monospace;
   width: 100%;
-  height: 100vh;
-  height: 100dvh; /* 🔥 Specifica per Safari iOS: calcola lo spazio reale senza le barre */
+  height: 100%; /* Prende tutto l'alto dello schermo disponibile */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centra tutto nello spazio visibile */
-  padding: 4px; /* Ridotto al minimo per recuperare pixel preziosi */
+  justify-content: center; /* Centra perfettamente il gioco in verticale */
+  padding: 10px;
   user-select: none;
   position: relative;
+}
+
+#hud {
+  display: flex;
+  justify-content: space-between;
+  /* IMPORTANTE: Usiamo fit-content così si adatta alla larghezza del canvas sottostante */
+  width: fit-content; 
+  font-size: 13px;
+  margin-bottom: 8px; /* Ridotto per lasciare più spazio verticale al canvas su mobile */
+  color: #7fff7f;
+  padding: 0 4px;
 }
 
 #canvas {
@@ -33,21 +43,9 @@ html, body {
   display: block;
   background: #000;
   cursor: none;
-  /* 🔥 Forza il canvas a non occupare mai più dell'75% dell'altezza dello schermo, 
-     lasciando il restante 25% all'HUD e ai margini di sicurezza su iPhone 8 */
-  max-height: 75vh; 
-  max-height: 75dvh; 
+  max-height: 82vh; /* Evita che il canvas tocchi i bordi estremi sopra/sotto nei telefoni lunghi */
 }
 
-#hud {
-  display: flex;
-  justify-content: space-between;
-  width: fit-content; 
-  font-size: 13px;
-  margin-bottom: 6px; /* Ridotto il margine */
-  color: #7fff7f;
-  padding: 0 4px;
-}
 #message {
   position: absolute;
   top: 50%;
