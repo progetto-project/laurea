@@ -78,6 +78,8 @@ function resize() {
   canvas.style.width = W + "px";
   canvas.style.height = H + "px";
 
+document.getElementById('hud').style.width = W + "px";
+
   if (player) updatePlayerPosition();
 }
 document.addEventListener('touchmove', e => {
@@ -376,7 +378,6 @@ const shootInterval = Math.max(35, 50- wave * 25);
                 type: "triple"
               });
             } else if (rand < 0.35) { 
-              // 🟡 25% di chance per il DOPPIO COLPO (0.25 + 0.25 = 0.50)
               powerUps.push({
                 x: e.x, y: e.y,
                 w: 35 * scale, h: 20 * scale,
@@ -482,12 +483,11 @@ if (alive.length === 0) {
         Math.abs(p.y - player.y) < (player.h / 2 + p.h / 2)) {
       
       if (p.type === "life") {
-        // 🔥 Aggiunge una vita (massimo 5 vite totali per bilanciamento)
         if (lives < 5) {
           lives++;
           livesEl.textContent = lives;
         }
-        spawnParticles(p.x, p.y, '#ff4444', 20); // Esplosione di particelle rosse
+        spawnParticles(p.x, p.y, '#ff4444', 20); 
       } else if (p.type === "triple") {
         tripleShotTimer = TRIPLE_SHOT_MAX_DURATION;
         doubleShotTimer = 0; 
@@ -649,7 +649,6 @@ function drawEnemy(e) {
   ctx.fill();
   ctx.stroke();
 
-  // 🔥 TESTO PIÙ GRANDE
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
@@ -661,7 +660,6 @@ function drawEnemy(e) {
   ctx.font = `${Math.round(11 * scale)}px 'Courier New'`;
   ctx.fillText(e.cfu + ' CFU', e.x, e.y + 10 * scale);
 
-  // 🔥 HP BAR PIÙ GRANDE
   const barWidth = e.maxHp * 14 * scale;
 
   for (let i = 0; i < e.maxHp; i++) {
@@ -722,7 +720,6 @@ function draw() {
   ctx.lineWidth = 0.5;
   for(let y=0;y<H;y+=30*scale){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
 
-// --- DISEGNA POWER-UPS (30L / 110L / CUORE) ---
   powerUps.forEach(p => {
     ctx.save();
     

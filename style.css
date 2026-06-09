@@ -1,35 +1,51 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; }
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+/* Forza la pagina ad occupare il 100% dello schermo del telefono senza barre di scorrimento */
+html, body { 
+  background: #000; 
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 #gameContainer {
   background: #000;
   color: #fff;
   font-family: 'Courier New', monospace;
   width: 100%;
-  min-height: 600px;
+  height: 100%; /* Prende tutto l'alto dello schermo disponibile */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px;
+  justify-content: center; /* Centra perfettamente il gioco in verticale */
+  padding: 10px;
   user-select: none;
   position: relative;
-  box-sizing: border-box;
 }
+
 #hud {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: 680px;
+  /* IMPORTANTE: Usiamo fit-content così si adatta alla larghezza del canvas sottostante */
+  width: fit-content; 
   font-size: 13px;
-  margin-bottom: 20px;
+  margin-bottom: 8px; /* Ridotto per lasciare più spazio verticale al canvas su mobile */
   color: #7fff7f;
   padding: 0 4px;
 }
+
 #canvas {
   border: 1px solid #333;
   display: block;
   background: #000;
   cursor: none;
+  max-height: 82vh; /* Evita che il canvas tocchi i bordi estremi sopra/sotto nei telefoni lunghi */
 }
+
 #message {
   position: absolute;
   top: 50%;
@@ -38,9 +54,12 @@ body { background: #000; }
   text-align: center;
   pointer-events: none;
   z-index: 10;
+  width: 90%; /* Evita che il testo vada a capo male su schermi stretti */
 }
+
 #message h2 { font-size: 22px; color: #ffe066; margin-bottom: 8px; }
 #message p { font-size: 14px; color: #aaa; }
+
 #startBtn {
   margin-top: 12px;
   background: transparent;
@@ -51,8 +70,10 @@ body { background: #000; }
   padding: 8px 20px;
   cursor: pointer;
   pointer-events: all;
+  border-radius: 6px;
 }
 #startBtn:hover { background: #7fff7f22; }
+
 #infoBar {
   font-size: 12px;
   color: #666;
