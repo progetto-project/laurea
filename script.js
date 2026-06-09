@@ -78,8 +78,6 @@ function resize() {
   canvas.style.width = W + "px";
   canvas.style.height = H + "px";
 
-document.getElementById('hud').style.width = W + "px";
-
   if (player) updatePlayerPosition();
 }
 document.addEventListener('touchmove', e => {
