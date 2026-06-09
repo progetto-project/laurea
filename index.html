@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flappy Thesis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+ <div id="gameContainer">
+  <div id="hud">
+    <span>⭐ PUNTEGGIO: <span id="score">0</span></span>
+    <span>📚 CFU: <span id="cfu">0</span>/180</span>
+    <span>❤️ <span id="lives">3</span></span>
+    
+  </div>
+  <h2 style="color: #ffe066;">👾 ESAMI INVADERS</h2>
+  <br>
+  <canvas id="canvas"></canvas>
+  <div id="infoBar">Trascina il cappello per sparare</div>
+  <div id="message">
+    <p style="color:#7fff7f;font-size:15px">Supera tutti gli esami e diventa Dottore!</p>
+    <br>
+    <button id="startBtn" onclick="startGame()">▶ INIZIA</button>
+  </div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>
