@@ -55,30 +55,43 @@ let tripleShotTimer = 0;
 const TRIPLE_SHOT_MAX_DURATION = 360;
 
 function resize() {
+  // Prendiamo lo spazio disponibile nel container (escludendo eventuali padding)
   const vw = window.innerWidth;
   const vh = window.innerHeight;
 
   const GAME_RATIO = 1.5; 
 
-  let width = vw - 15;
-  let height = vw * GAME_RATIO;
+  // 1. Proviamo a fare il gioco largo quanto lo schermo (meno un piccolo margine)
+  let width = vw - 16;
+  let height = width * GAME_RATIO;
 
-  if (height > vh) {
-    height = vh;
-    width = vh / GAME_RATIO;
+  // 2. Se l'altezza calcolata supera l'altezza dello schermo (es. telefoni piccoli o schermi 16:9 tarchiati)
+  // Lasciamo dello spazio per l'HUD in alto (circa 60px)
+  const maxAvailableHeight = vh - 70; 
+
+  if (height > maxAvailableHeight) {
+    height = maxAvailableHeight;
+    width = height / GAME_RATIO; // Ricalcoliamo la larghezza in base all'altezza massima!
   }
 
+  // Impostiamo le variabili globali di gioco
   W = width;
   H = height;
   scale = W / 480;
 
+  // Aggiorniamo il Canvas sia come coordinate interne che come stile CSS
   canvas.width = W;
   canvas.height = H;
 
-  canvas.style.width = W + "px";
-  canvas.style.height = H + "px";
+  canvas.style.width = Math.floor(W) + "px";
+  canvas.style.height = Math.floor(H) + "px";
 
-  if (player) updatePlayerPosition();
+  // Forza il riposizionamento del giocatore sul fondo del nuovo schermo scalato
+  if (player) {
+    updatePlayerPosition();
+    // Evita che il giocatore finisca fuori dai bordi laterali dopo un resize
+    player.x = Math.max(player.w / 2, Math.min(W - player.w / 2, player.x));
+  }
 }
 document.addEventListener('touchmove', e => {
   e.preventDefault();
@@ -97,9 +110,6 @@ function startGame() {
   powerUps = [];
   doubleShotTimer = 0;
   tripleShotTimer = 0;
-  
-  fullScreenFix();
-  
   score = 0; 
   lives = 3; 
   cfuTotal = 0; 
@@ -111,6 +121,7 @@ function startGame() {
   particles = [];
   
   initPlayer();
+  fullScreenFix();
   spawnWave();
   
   scoreEl.textContent = 0;

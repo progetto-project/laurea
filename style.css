@@ -5,14 +5,17 @@ body { background: #000; }
   color: #fff;
   font-family: 'Courier New', monospace;
   width: 100%;
-  min-height: 600px;
+  /* Modificato: usa l'altezza della viewport dinamica ed evita il blocco a 600px */
+  height: 100dvh; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   padding: 8px;
   user-select: none;
   position: relative;
   box-sizing: border-box;
+  overflow: hidden; /* Impedisce barre di scorrimento indesiderate */
 }
 #hud {
   display: flex;
