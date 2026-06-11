@@ -55,41 +55,44 @@ let tripleShotTimer = 0;
 const TRIPLE_SHOT_MAX_DURATION = 360;
 
 function resize() {
-  // Prendiamo lo spazio disponibile nel container (escludendo eventuali padding)
+  const container = document.getElementById('gameContainer');
+  const hud = document.getElementById('hud');
+  
+  // 1. Prendi lo spazio totale del display
   const vw = window.innerWidth;
   const vh = window.innerHeight;
 
-  const GAME_RATIO = 1.5; 
+  // 2. Calcola lo spazio occupato dall'HUD
+  const hudHeight = hud ? hud.offsetHeight : 40;
 
-  // 1. Proviamo a fare il gioco largo quanto lo schermo (meno un piccolo margine)
-  let width = vw - 16;
-  let height = width * GAME_RATIO;
+  // 3. Calcoliamo la larghezza standard (quasi tutto lo schermo)
+  W = vw - 16; 
 
-  // 2. Se l'altezza calcolata supera l'altezza dello schermo (es. telefoni piccoli o schermi 16:9 tarchiati)
-  // Lasciamo dello spazio per l'HUD in alto (circa 60px)
-  const maxAvailableHeight = vh - 70; 
+  // 4. CALCOLO ALTEZZA CON LIMITE (Proporzionata)
+  // Definiamo un rapporto ideale: l'altezza ideale dovrebbe essere circa 1.4 o 1.5 della larghezza
+  let idealeH = W * 1.15; 
+  
+  // Calcoliamo lo spazio massimo verticale rimasto sul telefono
+  let massimoHDisponibile = vh - hudHeight - 25;
 
-  if (height > maxAvailableHeight) {
-    height = maxAvailableHeight;
-    width = height / GAME_RATIO; // Ricalcoliamo la larghezza in base all'altezza massima!
-  }
+  // Scegliamo il valore più piccolo tra l'altezza ideale e lo spazio reale del telefono.
+  // In questo modo, se lo schermo è "troppo lungo", H si ferma all'altezza ideale e non cresce più!
+  H = Math.min(idealeH, massimoHDisponibile);
 
-  // Impostiamo le variabili globali di gioco
-  W = width;
-  H = height;
-  scale = W / 480;
+  // 5. Ricalcoliamo la scala di gioco in base alla larghezza reale
+  scale = W / 480; 
 
-  // Aggiorniamo il Canvas sia come coordinate interne che come stile CSS
+  // 6. Applichiamo le coordinate interne al Canvas
   canvas.width = W;
   canvas.height = H;
 
+  // 7. Applichiamo le dimensioni CSS reali
   canvas.style.width = Math.floor(W) + "px";
   canvas.style.height = Math.floor(H) + "px";
 
-  // Forza il riposizionamento del giocatore sul fondo del nuovo schermo scalato
+  // 8. Forza il giocatore a stare sul fondo del NUOVO spazio calcolato
   if (player) {
     updatePlayerPosition();
-    // Evita che il giocatore finisca fuori dai bordi laterali dopo un resize
     player.x = Math.max(player.w / 2, Math.min(W - player.w / 2, player.x));
   }
 }
