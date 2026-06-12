@@ -10,21 +10,20 @@
 
 <body>
 
- <div id="gameContainer">
+<div id="gameContainer">
   <div id="hud">
-    <span>⭐ PUNTEGGIO: <span id="score">0</span></span>
-    <span>📚 CFU: <span id="cfu">0</span>/180</span>
+    <span>⭐ <span id="score">0</span></span>
+    <span>📚 CFU <span id="cfu">0</span>/180</span>
     <span>❤️ <span id="lives">3</span></span>
-    
   </div>
-  <h2 style="color: #ffe066;">👾 ESAMI INVADERS</h2>
-  <br>
-  <canvas id="canvas"></canvas>
-  <div id="infoBar">Trascina il cappello per sparare</div>
-  <div id="message">
-    <p style="color:#7fff7f;font-size:15px">Supera tutti gli esami e diventa Dottore!</p>
-    <br>
-    <button id="startBtn" onclick="startGame()">▶ INIZIA</button>
+  <div id="canvasWrap">
+    <canvas id="canvas"></canvas>
+    <div id="message">
+      <h2>👾 ESAMI INVADERS</h2>
+      <p style="color:#7fff7f;font-size:14px;margin-top:4px">Trascina per muoverti<br>Sparo automatico!</p>
+      <br>
+      <button class="sbtn" onclick="startGame()">▶ INIZIA</button>
+    </div>
   </div>
 </div>
   <script src="script.js"></script>
