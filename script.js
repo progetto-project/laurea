@@ -73,7 +73,7 @@ function resize() {
   if (player) {
     player.w = 48 * scale;
     player.h = 36 * scale;
-    player.y = H - player.h / 2 - 6 * scale;
+    player.y = H - player.h / 2 - 130 * scale;
     player.speed = 5 * scale;
     player.x = Math.max(player.w / 2, Math.min(W - player.w / 2, player.x));
   }
@@ -181,7 +181,7 @@ function update() {
   }
   player.x = Math.max(player.w / 2, Math.min(W - player.w / 2, player.x));
   // keep player pinned to bottom after resize
-  player.y = H - player.h / 2 - 6 * scale;
+  player.y = H - player.h / 2 - 130 * scale;
 
   // -- auto shoot --
   if (tripleShotTimer > 0) tripleShotTimer--;
